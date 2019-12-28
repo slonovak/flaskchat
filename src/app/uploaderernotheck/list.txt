@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}
+Тредач. Треды
+{% endblock %}
+{% block body %}
+    {% if threads %}
+    <h5 style="text-align: center; color: #f0ffe8">Треды, в которых вы состоите</h5>
+    <div id="messages" class="no-js" style="width: 80%; margin-left: auto; margin-right: auto; border: 1px solid #e0e0e0; background-color: rgba(255,255,255,0.5); margin-bottom: 20px; height: 150px; padding: 5px; overflow-y: scroll;">
+    {% for tr in threads %}
+        <h5 style="text-align: center; color: white"><a href="/threads/{{ tr.id }}">{{ tr.name }}</a></h5>
+    {% endfor %}
+    </div>
+    {% else %}
+    <h5 style="text-align: center; color: #f0ffe8">Вы не состоите ни в одном треде</h5>
+    {% endif %}
+    <form method="post" action="">
+        <input class="button success" style="margin-left: auto; margin-right: auto;" type="submit" value="Создать">
+    </form>
+{% endblock %}

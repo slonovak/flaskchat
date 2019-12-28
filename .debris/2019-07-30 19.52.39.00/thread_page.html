@@ -1,0 +1,81 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="jquery.js"></script>  
+    <title>Тредач.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.1/css/foundation.min.css" crossorigin="anonymous" />
+
+  </head>
+  <style>
+      body {
+          background-image: url('/static/cover.jpg');
+          background-repeat: round;
+          background-size: auto;
+      }
+
+      #wrapper {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+
+          background-color: rgba(0, 0, 0, 0.7);
+          width: 100%;
+          height: 100%;
+      }
+  </style>
+  <body>
+    <div id="wrapper">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li class="menu-text">Thread-ach</li>
+          {% if not logged_in() %}
+          <li><a href="/register">Регистрация</a></li>
+          <li><a href="/login">Вход</a></li>
+          {% else %}
+          <li><a href="/logout">Выйти</a></li>
+          {% endif %}
+        </ul>
+      </div>
+     <div class="top-bar-right">
+       <ul class="menu">
+           <li><a href="#">{{ session['login'] }}</a></li>
+           <li><a href="/">Домашняя страница</a></li>
+       </ul>
+     </div>
+    </div>
+    <h5 style="text-align: center; color: #f0ffe8">Тред {{ thread.name }}</h5>
+    <div id='content'>
+</div>
+    <script>
+setInterval(function(){ // load the data from your endpoint into the div
+    $("#content").html("message.html")
+},1000)
+</script>
+    <h5 style="text-align: center; color: white">Написать сообщение в тред</h5>
+    
+    <h4 style="text-align: center; color: white"><a href="/find/{{ t_id }}/{{ u_id }}/{{ hash }}">Инвайт-линк</a></h4>
+
+    <form method="post" action="">
+        <label>
+        <textarea name="text" style="width: 35%; margin-left: auto; margin-right: auto; background-color: rgba(255,255,255,0.5);"></textarea>
+        </label>
+        <div style="width: 100%; text-align: center;">
+            <input style="margin-left: auto; margin-right: auto;" type="submit" class="button warning" value="Создать">
+        </div>
+    </form>
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.1/js/foundation.min.js" crossorigin="anonymous"></script>
+    <script>
+      $(document).foundation();
+    </script>
+    </div>
+  </body>
+</html>

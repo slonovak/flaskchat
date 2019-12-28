@@ -1,0 +1,85 @@
+<!doctype html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <script type="text/javascript"
+    src="{ URI to jQuery - not included with this project}"></script>
+    <script type="text/javascript"src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/sijax/sijax.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.1/css/foundation.min.css" crossorigin="anonymous" />
+    <script type="text/javascript">
+        {{ g.sijax.get_js()|safe }}
+    </script>
+    <title>Тредач.</title>
+    
+  </head>
+  <style>
+      body {
+          background-image: url('/static/cover.jpg');
+          background-repeat: round;
+          background-size: auto;
+      }
+
+      #wrapper {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+
+          background-color: rgba(0, 0, 0, 0.7);
+          width: 100%;
+          height: 100%;
+      }
+  </style>
+  <body>
+    <div  id="wrapper">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li class="menu-text">Thread-ach</li>
+          {% if not logged_in() %}
+          <li><a href="/register">Регистрация</a></li>
+          <li><a href="/login">Вход</a></li>
+          {% else %}
+          <li><a href="/logout">Выйти</a></li>
+          {% endif %}
+        </ul>
+      </div>
+     <div class="top-bar-right">
+       <ul class="menu">
+           <li><a href="#">{{ session['login'] }}</a></li>
+           <li><a href="/">Домашняя страница</a></li>
+       </ul>
+     </div>
+    </div>
+    <h5 class="no-js" style="text-align: center; color: #f0ffe8">Тред {{ thread.name }}</h5>
+    <div id="messages" class="no-js" style="width: 80%; margin-left: auto; margin-right: auto; border: 1px solid #e0e0e0; background-color: rgba(255,255,255,0.5); margin-bottom: 20px; height: 150px; padding: 5px; overflow-y: scroll;"></div>
+    <h4 class="no-js" style="text-align: center; color: white"><a href="/find/{{ t_id }}/{{ u_id }}/{{ hash }}">Инвайт-линк</a></h4>
+    <h5 class="no-js" style="text-align: center; color: white">Написать сообщение в тред</h5>
+    <div class="no-js" id="lnk"><input type="text" id="ln" style="visibility: hidden" value="0"></div>
+    <form id="messageForm" name="messageForm" >
+       <input class="no-js" type="text" id="message" style="width: 35%; margin-left: auto; margin-right: auto; background-color: rgba(255,255,255,0.5);">
+        <div class="no-js" style="width: 100%; text-align: center;"><input style="margin-left: auto; margin-right: auto;" type="submit" class="button warning" value="Создать"></div>
+    </form><script type="text/javascript">
+              $(function() {
+        $('#messageForm').bind('submit', function() {
+            Sijax.request('save_message', [$('#message').attr('value')],{data:{u_id:"{{u_id}}", t_id:"{{t_id}}"}});
+            //Prevent the form from being submitted
+            return false;
+        });
+        $('#message').focus();
+      });
+              </script>
+    </div>
+        <script type="text/javascript">
+
+        setInterval(function(){ // load the data from your endpoint into the div
+            Sijax.request('rel',[], {data: { thread: "{{ t_id }}", ss:$('#ln').attr('value')} } );
+        },1000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+{% if thread.messages %}
+    {% for mes in somebody %}
+        <h4 style="text-align: center; color: white">{{ mes.author.login }} написал {{ mes.text }} </h4>
+    {% endfor %}
+    {% else %}
+        <h5 style="text-align: center; color: white">Сообщения не найдены</h5>
+    {% endif %}

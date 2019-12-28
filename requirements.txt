@@ -1,0 +1,5 @@
+flask
+flask-sijax
+pony
+gevent
+gunicorn
